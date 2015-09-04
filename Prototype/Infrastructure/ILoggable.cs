@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Infrastructure
 {
-    public interface ILoggable<S> 
-        where S : Phase
+    public interface ILoggable<P> 
+        where P : Phase
     {
     }
 }
