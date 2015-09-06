@@ -23,9 +23,15 @@ namespace UI.Web
             GlobalConfiguration.Configure(AutofacConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            new AppStartup()
-                .RaiseAsync()
-                .Wait();
+            try
+            {
+                new AppStartup()
+                    .RaiseAsync()
+                    .Wait();
+            }
+            catch
+            {
+            }
         }
     }
 }

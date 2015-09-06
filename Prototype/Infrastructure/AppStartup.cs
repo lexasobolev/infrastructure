@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure
 {
-    public class AppStartup : ILoggable<Before>
+    public class AppStartup : ILoggable<Before>, ILoggable<Failed>
     {
     }
 }

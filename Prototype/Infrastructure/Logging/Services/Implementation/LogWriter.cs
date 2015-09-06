@@ -65,7 +65,7 @@ namespace Infrastructure.Logging.Services.Implementation
                 LoggedAt = _clock.Time,
                 UserId = _authenticator.UserId,
                 Text = phase + " " + e,
-                Error = ex?.Message,
+                Error = ex?.ToString(),
                 Xml = w.ToString()
             });
 
