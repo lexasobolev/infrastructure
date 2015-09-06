@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Security
 {
-    public class SignIn : ILoggable<Succeeded>, ILoggable<Failed>
+    public class SignIn : ILoggable<Before>, ILoggable<Succeeded>, ILoggable<Failed>
     {
         // in
         public string Id { get; set; }

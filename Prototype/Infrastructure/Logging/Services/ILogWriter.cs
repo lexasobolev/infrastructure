@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 namespace Infrastructure.Logging.Services
 {
     public interface ILogWriter : 
-        IHandler<Broadcast<Preparing, ILoggable<Preparing>>>,
-        IHandler<Broadcast<Unhandled, ILoggable<Unhandled>>>,
-        IHandler<Broadcast<Succeeded, ILoggable<Succeeded>>>,
-        IHandler<Broadcast<Failed, ILoggable<Failed>>>
+        IHandler<IBroadcast<Before, ILoggable<Before>>>,
+        IHandler<IBroadcast<Unhandled, ILoggable<Unhandled>>>,
+        IHandler<IBroadcast<Succeeded, ILoggable<Succeeded>>>,
+        IHandler<IBroadcast<Failed, ILoggable<Failed>>>
     {
     }
 }

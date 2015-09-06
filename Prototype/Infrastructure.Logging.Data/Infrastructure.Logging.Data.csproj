@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0A2EC014-ADB9-4534-A51D-27BFC25930FC}</ProjectGuid>
+    <ProjectGuid>{CFE150B4-9D3E-4B3B-92D2-879CED57617E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Events</RootNamespace>
-    <AssemblyName>Events</AssemblyName>
+    <RootNamespace>Infrastructure.Logging.Data</RootNamespace>
+    <AssemblyName>Infrastructure.Logging.Data</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
@@ -117,7 +117,16 @@
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -127,15 +136,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Broadcast{P,T}.cs" />
-    <Compile Include="Models\CartesianProduct{T}.cs" />
-    <Compile Include="Models\TypeHelpers.cs" />
-    <Compile Include="Phase.cs" />
-    <Compile Include="Event.cs" />
-    <Compile Include="Services\IEventDispatcher.cs" />
-    <Compile Include="IHandler{T}.cs" />
+    <Compile Include="LogContext.cs" />
+    <Compile Include="LogEntryConfiguration.cs" />
+    <Compile Include="Migrations\201509060152342_InitialLogDbCreation.cs" />
+    <Compile Include="Migrations\201509060152342_InitialLogDbCreation.Designer.cs">
+      <DependentUpon>201509060152342_InitialLogDbCreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Implementation\EventDispatcher.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{dab2665e-d8f0-4f11-9413-ae3b42bfac1a}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{638a4e52-2f4a-428c-a51b-1e3127b7f88c}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201509060152342_InitialLogDbCreation.resx">
+      <DependentUpon>201509060152342_InitialLogDbCreation.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

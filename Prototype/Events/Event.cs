@@ -23,36 +23,36 @@ namespace Events
         public static async Task ExecuteAsync<T>(this T e)
         {
             if (!await RaiseAsync(e))
-                new NotImplementedException("Required " + typeof(T).Name + " event handler is not registered.");
+                throw new NotImplementedException("Required " + typeof(T).Name + " event handler is not registered.");
         }
 
         public async static Task<bool> RaiseAsync<T>(this T e)
         {
             try
             {
-                await new Broadcast<Preparing, T>(e).RaiseAsync();
+                await Subscription.NotifyAsync(new Broadcast<Before, T>(e));
 
                 if(await Subscription.NotifyAsync(e))
                 {
-                    await new Broadcast<Succeeded, T>(e).RaiseAsync();
+                    await Subscription.NotifyAsync(new Broadcast<Succeeded, T>(e));                    
                     return true;
                 }
                 else
                 {
-                    await new Broadcast<Unhandled, T>(e).RaiseAsync();
+                    await Subscription.NotifyAsync(new Broadcast<Unhandled, T>(e));                    
                     return false;
                 }
             }
             catch(Exception ex)
             {
-                await new Broadcast<Failed, T>(e, ex).RaiseAsync();
+                await Subscription.NotifyAsync(new Broadcast<Failed, T>(e, ex));
                 throw;
             }
         }
 
         abstract class Subscription : IDisposable
         {
-            static ReaderWriterLockSlim Lock { get; } = new ReaderWriterLockSlim();
+            static ReaderWriterLockSlim Lock { get; } = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
             static HashSet<Subscription> Instances { get; } = new HashSet<Subscription>();
 
             protected Subscription()

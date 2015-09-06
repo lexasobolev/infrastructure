@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Events
 {   
-    public class Broadcast<P, T> 
+    public interface IBroadcast<P, out T>
+    {
+        T Subject { get; }
+        Exception Exception { get; }
+    }
+
+    public class Broadcast<P, T> : IBroadcast<P, T>
         where P : Phase
     {
         public Broadcast(T subject, Exception exception = null)

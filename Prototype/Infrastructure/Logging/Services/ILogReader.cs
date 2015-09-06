@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Logging.Services
 {
-    interface ILogReader : IHandler<LogQuery>
+    public interface ILogReader : IHandler<LogQuery>
     {
     }
 }
