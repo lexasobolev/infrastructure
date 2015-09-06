@@ -148,6 +148,7 @@
     <Compile Include="Logging\LogQuery.cs" />
     <Compile Include="Logging\Services\ILogReader.cs" />
     <Compile Include="Logging\Services\ILogWriter.cs" />
+    <Compile Include="Logging\Services\Implementation\LogReader.cs" />
     <Compile Include="Logging\Services\Implementation\LogWriter.cs" />
     <Compile Include="PaginatedQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

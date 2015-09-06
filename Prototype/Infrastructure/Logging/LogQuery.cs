@@ -8,6 +8,12 @@ namespace Infrastructure.Logging
 {
     public class LogQuery : PaginatedQuery
     {
+        public LogQuery()
+        {
+            LoggedAfter = DateTime.MinValue;
+            LoggedBefore = DateTime.MaxValue;
+        }
+
         // in
         public DateTime LoggedAfter { get; set; }
 

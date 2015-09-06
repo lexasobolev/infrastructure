@@ -1,5 +1,6 @@
 ﻿using Events;
 using Infrastructure;
+using Infrastructure.Logging;
 using Infrastructure.Security;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,11 @@ namespace UI.Web.Controllers
     {
         [HttpGet]
         [Route]
-        public async Task<string> Get([FromUri] SignIn signIn)
+        public async Task<IEnumerable<LogEntry>> Get([FromUri] LogQuery query)
         {
-
-            //await signIn.ValidateAsync();
-            await signIn.RaiseAsync();
-            return "Hello World";
+            query = query ?? new LogQuery();
+            await query.ExecuteAsync();
+            return query.Entries;
         }
     }
 }
