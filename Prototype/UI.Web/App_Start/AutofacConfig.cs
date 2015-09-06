@@ -28,6 +28,7 @@ namespace UI.Web.App_Start
             
             var anchors = new List<Type>
             {
+                typeof(AutofacConfig), // UI.Web
                 typeof(Event), // Events
                 typeof(IUnitOfWork), // Infastruture
                 typeof(Repository<>), // Infastruture.Data
