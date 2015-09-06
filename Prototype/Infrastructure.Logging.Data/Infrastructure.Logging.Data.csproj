@@ -142,14 +142,14 @@
     <Compile Include="Migrations\201509060152342_InitialLogDbCreation.Designer.cs">
       <DependentUpon>201509060152342_InitialLogDbCreation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509060408025_LogExtendedWithXml.cs" />
+    <Compile Include="Migrations\201509060408025_LogExtendedWithXml.Designer.cs">
+      <DependentUpon>201509060408025_LogExtendedWithXml.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
-      <Project>{dab2665e-d8f0-4f11-9413-ae3b42bfac1a}</Project>
-      <Name>Infrastructure.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{638a4e52-2f4a-428c-a51b-1e3127b7f88c}</Project>
       <Name>Infrastructure</Name>
@@ -162,6 +162,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201509060152342_InitialLogDbCreation.resx">
       <DependentUpon>201509060152342_InitialLogDbCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509060408025_LogExtendedWithXml.resx">
+      <DependentUpon>201509060408025_LogExtendedWithXml.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

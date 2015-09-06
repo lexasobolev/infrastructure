@@ -9,6 +9,7 @@ using System.Diagnostics.Contracts;
 using System.IO;
 using Infrastructure.Services;
 using Infrastructure.Logging.Data;
+using System.Xml.Serialization;
 
 namespace Infrastructure.Logging.Services.Implementation
 {
@@ -31,38 +32,41 @@ namespace Infrastructure.Logging.Services.Implementation
 
         public async Task<bool> HandleAsync(IBroadcast<Succeeded, ILoggable<Succeeded>> e)
         {
-            await Write("Succeeded", e.Subject.ToString());
+            await Write("Succeeded", e.Subject);
             return false;
         }
 
         public async Task<bool> HandleAsync(IBroadcast<Failed, ILoggable<Failed>> e)
         {
-            await Write("Failed", e.Subject.ToString(), e.Exception.ToString());
+            await Write("Failed", e.Subject, e.Exception);
             return false;
         }
 
         public async Task<bool> HandleAsync(IBroadcast<Unhandled, ILoggable<Unhandled>> e)
         {
-            await Write("Unhandled", e.Subject.ToString());
+            await Write("Unhandled", e.Subject);
             return false;
         }
 
         public async Task<bool> HandleAsync(IBroadcast<Before, ILoggable<Before>> e)
         {
-            await Write("Preparing", e.Subject.ToString());
+            await Write("Before", e.Subject);
             return false;
         }
 
-        async Task Write(string phase, string text, string error = "")
+        async Task Write(string phase, object e, Exception ex = null)
         {
+            var s = new XmlSerializer(e.GetType());
+            var w = new StringWriter();
+            s.Serialize(w, e);            
+
             _context.Entries.Create(new LogEntryData
             {
                 LoggedAt = _clock.Time,
                 UserId = _authenticator.UserId,
-                Text = 
-                    phase + "\r\n" +
-                    text + "\r\n" +
-                    error + "\r\n\r\n"
+                Text = phase + " " + e,
+                Error = ex?.Message,
+                Xml = w.ToString()
             });
 
             await _context.SaveAsync();

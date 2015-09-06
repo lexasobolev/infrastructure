@@ -7,6 +7,8 @@ namespace Infrastructure.Logging.Data
         public LogEntryConfiguration()
         {
             ToTable("Entries", "Log");
+            Property(e => e.Xml)
+                .HasColumnType("xml");
         }
     }
 }

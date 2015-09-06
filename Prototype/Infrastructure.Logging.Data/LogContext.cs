@@ -1,4 +1,5 @@
-﻿using Infrastructure.Logging.Data.Migrations;
+﻿using Infrastructure.Data;
+using Infrastructure.Logging.Data.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

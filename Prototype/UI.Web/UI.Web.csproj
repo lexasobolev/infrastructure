@@ -232,10 +232,6 @@
       <Project>{0a2ec014-adb9-4534-a51d-27bfc25930fc}</Project>
       <Name>Events</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
-      <Project>{dab2665e-d8f0-4f11-9413-ae3b42bfac1a}</Project>
-      <Name>Infrastructure.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Infrastructure.Logging.Data\Infrastructure.Logging.Data.csproj">
       <Project>{cfe150b4-9d3e-4b3b-92d2-879ced57617e}</Project>
       <Name>Infrastructure.Logging.Data</Name>

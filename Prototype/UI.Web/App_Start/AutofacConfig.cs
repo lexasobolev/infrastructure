@@ -5,6 +5,7 @@ using Events;
 using Events.Services;
 using Events.Services.Implementation;
 using Infrastructure;
+using Infrastructure.Data;
 using Infrastructure.Logging.Data;
 using Infrastructure.Logging.Services;
 using Infrastructure.Security;
@@ -31,8 +32,7 @@ namespace UI.Web.App_Start
                 typeof(AutofacConfig), // UI.Web
                 typeof(Event), // Events
                 typeof(IUnitOfWork), // Infastruture
-                typeof(Repository<>), // Infastruture.Data
-                typeof(LogContext), // Infastruture.Loggin.Data
+                typeof(LogContext), // Infastruture.Logging.Data
                 typeof(Authenticator) // Infastruture.Security
             };
 

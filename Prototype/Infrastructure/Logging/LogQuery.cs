@@ -29,5 +29,8 @@ namespace Infrastructure.Logging
         public int UserId { get; set; }
         public DateTime LoggedAt { get; set; }
         public string Text { get; set; }
+        public string Error { get; set; }
+        public string Xml { get; set; }
+        
     }
 }

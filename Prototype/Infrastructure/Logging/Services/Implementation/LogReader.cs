@@ -27,7 +27,9 @@ namespace Infrastructure.Logging.Services.Implementation
                                {
                                    UserId = entry.UserId,
                                    LoggedAt = entry.LoggedAt,
-                                   Text = entry.Text
+                                   Text = entry.Text,
+                                   Error = entry.Error,
+                                   Xml = entry.Xml
                                })
                    .Skip(e.PageSize * (e.Page - 1))
                    .Take(e.PageSize)

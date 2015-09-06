@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authorization.cs" />
+    <Compile Include="Data\Repository{T}.cs" />
     <Compile Include="ILoggable.cs" />
     <Compile Include="IRepository{T}.cs" />
     <Compile Include="IUnitOfWork.cs" />
