@@ -31,8 +31,15 @@ namespace Events.Services.Implementation
                           let method = handler.GetType().GetMethod("HandleAsync", new[] { e.GetType() })
                           select (Task<bool>)method.Invoke(handler, new[] { e });
 
-            return (await Task.WhenAll(matches))
-                .Contains(true);
+            var task = Task.WhenAll(matches);
+            try
+            {
+                return (await task).Contains(true);
+            }
+            catch
+            {
+                throw task.Exception;
+            }
         }
     }
 }
