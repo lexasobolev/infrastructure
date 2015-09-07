@@ -12,8 +12,7 @@ namespace UI.Web.Services.Implementation
     {
         public async Task<bool> HandleAsync(AppStartup e)
         {
-            throw new NotSupportedException();
-            
+            throw new NotSupportedException();            
         }
     }
 
@@ -21,8 +20,7 @@ namespace UI.Web.Services.Implementation
     {
         public async Task<bool> HandleAsync(AppStartup e)
         {
-            throw new InvalidTimeZoneException();
-            
+            throw new InvalidTimeZoneException();            
         }
     }
 }
