@@ -14,8 +14,5 @@ namespace Infrastructure.Security
 
         // in
         public string Password { get; set; }
-
-        // out
-        public int UserId { get; set; }
     }
 }
