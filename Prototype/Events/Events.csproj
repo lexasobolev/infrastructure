@@ -132,6 +132,7 @@
     <Compile Include="Models\TypeHelpers.cs" />
     <Compile Include="Phase.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="Reply.cs" />
     <Compile Include="Services\IEventDispatcher.cs" />
     <Compile Include="IHandler{T}.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

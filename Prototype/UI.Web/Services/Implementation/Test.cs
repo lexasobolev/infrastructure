@@ -12,15 +12,62 @@ namespace UI.Web.Services.Implementation
     {
         public async Task<bool> HandleAsync(AppStartup e)
         {
-            throw new NotSupportedException();            
+            await new Question()
+                .ExecuteAsync(
+                    async (Answer1 a1) => true,
+                    async (Answer2 a2) => true);
+
+            return true;       
         }
     }
 
-    class Test2 : IHandler<AppStartup>
+    class Oracle : IHandler<Question>
     {
-        public async Task<bool> HandleAsync(AppStartup e)
+        public async Task<bool> HandleAsync(Question e)
         {
-            throw new InvalidTimeZoneException();            
+            await e.Reply(new Answer1());
+            await e.Reply(new Answer2());
+            await e.Reply(new Answer3());            
+            return true;     
         }
     }
+
+    class Spy : 
+        IHandler<Question>, 
+        IHandler<Answer1>, 
+        IHandler<Answer2>, 
+        IHandler<Answer3>
+    {
+        public async Task<bool> HandleAsync(Answer2 e)
+        {
+            return true;
+        }
+
+        public async Task<bool> HandleAsync(Answer3 e)
+        {
+            return true;
+        }
+
+        public async Task<bool> HandleAsync(Answer1 e)
+        {
+            return true;
+        }
+
+        public async Task<bool> HandleAsync(Question e)
+        {       
+            return true;
+        }
+    }
+
+    class Question
+    { }
+
+    class Answer1
+    { }
+
+    class Answer2
+    { }
+
+    class Answer3
+    { }
 }
