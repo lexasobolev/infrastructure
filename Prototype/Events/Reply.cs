@@ -26,7 +26,7 @@ namespace Events
 
     public static class ReplyHelper
     {
-        public async static Task<bool> Reply<TOriginal, TSubject>(this TOriginal original, TSubject subject)
+        public async static Task<bool> ReplyAsync<TOriginal, TSubject>(this TOriginal original, TSubject subject)
         {
             return await new Reply<TOriginal, TSubject>(original, subject)
                 .RaiseAsync();

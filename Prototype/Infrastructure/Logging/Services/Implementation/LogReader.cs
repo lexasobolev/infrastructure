@@ -20,7 +20,7 @@ namespace Infrastructure.Logging.Services.Implementation
 
         public async Task<bool> HandleAsync(LogQuery e)
         {
-            await e.Reply(await (from entry in Context.Entries.Query()
+            await e.ReplyAsync(await (from entry in Context.Entries.Query()
                                where entry.LoggedAt > e.LoggedAfter
                                where entry.LoggedAt < e.LoggedBefore
                                orderby entry.LoggedAt descending

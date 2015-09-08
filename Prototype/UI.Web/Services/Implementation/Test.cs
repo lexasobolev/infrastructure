@@ -25,9 +25,9 @@ namespace UI.Web.Services.Implementation
     {
         public async Task<bool> HandleAsync(Question e)
         {
-            await e.Reply(new Answer1());
-            await e.Reply(new Answer2());
-            await e.Reply(new Answer3());            
+            await e.ReplyAsync(new Answer1());
+            await e.ReplyAsync(new Answer2());
+            await e.ReplyAsync(new Answer3());            
             return true;     
         }
     }
