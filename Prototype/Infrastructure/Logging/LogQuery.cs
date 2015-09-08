@@ -19,9 +19,6 @@ namespace Infrastructure.Logging
 
         // in
         public DateTime LoggedBefore { get; set; }
-
-        // out
-        public IEnumerable<LogEntry> Entries { get; set; }
     }
 
     public class LogEntry

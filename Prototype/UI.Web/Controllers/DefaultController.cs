@@ -19,9 +19,9 @@ namespace UI.Web.Controllers
         [Route]
         public async Task<IEnumerable<LogEntry>> Get([FromUri] LogQuery query)
         {
-            query = query ?? new LogQuery();
-            await query.ExecuteAsync();
-            return query.Entries;
+            query = query ?? new LogQuery();            
+            return await query
+                .WaitAsync<IEnumerable<LogEntry>>();            
         }
     }
 }

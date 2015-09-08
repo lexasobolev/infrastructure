@@ -32,6 +32,24 @@ namespace Events
                 .RaiseAsync();
         }
 
+        public static async Task<T> WaitAsync<T>(this object original)
+        {
+            T result = default(T);
+            var replyed = false;
+            await original.ExecuteAsync(
+                async (T e) =>
+                {
+                    result = e;
+                    replyed = true;
+                    return true;
+                });
+
+            if (!replyed)
+                throw new NotImplementedException();
+
+            return result;
+        }
+
         public static async Task ExecuteAsync<TOriginal, T1>(this TOriginal original, 
             Func<T1, Task<bool>> h1)
         {
