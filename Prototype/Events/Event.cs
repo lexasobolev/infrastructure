@@ -10,6 +10,11 @@ namespace Events
 {
     public static class Event
     {
+        public static IDisposable Subscribe<T>(IWeakHandler<T> handler)
+        {
+            return new WeakSubscription<T>(handler);
+        }
+
         public static IDisposable Subscribe<T>(IHandler<T> handler)
         {
             return Subscribe<T>(handler.HandleAsync);
@@ -87,7 +92,7 @@ namespace Events
                 Lock.EnterReadLock();
                 try
                 {
-                    matches = Task.WhenAll(from s in Instances
+                    matches = Task.WhenAll(from s in Instances.ToArray()
                                            select s.NotifyCoreAsync(e));
                 }
                 finally
@@ -117,6 +122,30 @@ namespace Events
                     return _handler((T)e);
                 else
                     return Task.FromResult(false);
+            }
+        }
+
+        class WeakSubscription<T> : Subscription
+        {
+            readonly WeakReference<IWeakHandler<T>> _reference;
+
+            public WeakSubscription(IWeakHandler<T> handler)
+            {
+                _reference = new WeakReference<IWeakHandler<T>>(handler);
+            }
+
+            protected override Task<bool> NotifyCoreAsync(object e)
+            {
+                if (e is T)
+                {
+                    IWeakHandler<T> handler;
+                    if (_reference.TryGetTarget(out handler))
+                        return handler.HandleAsync((T)e);
+                    
+                    Dispose();
+                }
+                
+                return Task.FromResult(false);
             }
         }
     }

@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Broadcast{P,T}.cs" />
+    <Compile Include="IWeakHandler{T}.cs" />
     <Compile Include="Models\CartesianProduct{T}.cs" />
     <Compile Include="Models\TypeHelpers.cs" />
     <Compile Include="Phase.cs" />
