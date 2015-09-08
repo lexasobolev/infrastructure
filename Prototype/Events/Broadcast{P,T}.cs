@@ -12,7 +12,7 @@ namespace Events
         Exception Exception { get; }
     }
 
-    public class Broadcast<P, T> : IBroadcast<P, T>
+    class Broadcast<P, T> : IBroadcast<P, T>
         where P : Phase
     {
         public Broadcast(T subject, Exception exception = null)

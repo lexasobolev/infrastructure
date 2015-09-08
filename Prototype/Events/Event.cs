@@ -10,17 +10,20 @@ namespace Events
 {
     public static class Event
     {
+        public static IDisposable Subscribe<T>(Func<T, Task<bool>> handler, bool weakReference = false)
+        {
+            if (weakReference)
+                return Subscribe(new WeakHandler<T>(handler));
+            else
+                return Subscribe(new Handler<T>(handler));
+        }
+
         public static IDisposable Subscribe<T>(IWeakHandler<T> handler)
         {
             return new WeakSubscription<T>(handler);
         }
 
         public static IDisposable Subscribe<T>(IHandler<T> handler)
-        {
-            return Subscribe<T>(handler.HandleAsync);
-        }
-
-        public static IDisposable Subscribe<T>(Func<T, Task<bool>> handler)
         {
             return new Subscription<T>(handler);
         }
@@ -109,9 +112,9 @@ namespace Events
 
         class Subscription<T> : Subscription
         {
-            readonly Func<T, Task<bool>> _handler;
+            readonly IHandler<T> _handler;
 
-            public Subscription(Func<T, Task<bool>> handler)
+            public Subscription(IHandler<T> handler)
             {
                 _handler = handler;
             }
@@ -119,7 +122,7 @@ namespace Events
             protected override Task<bool> NotifyCoreAsync(object e)
             {
                 if (e is T)
-                    return _handler((T)e);
+                    return _handler.HandleAsync((T)e);
                 else
                     return Task.FromResult(false);
             }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Events
 {
-    interface IReply<out TOriginal, out TSubject>
+    public interface IReply<out TOriginal, out TSubject>
     {
         TOriginal Original { get; }
         TSubject Subject { get; }
