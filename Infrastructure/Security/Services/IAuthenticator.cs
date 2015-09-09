@@ -8,6 +8,6 @@ namespace Infrastructure.Security.Services
 {
     public interface IAuthenticator
     {
-        int UserId { get; }
+        Guid UserId { get; }
     }
 }

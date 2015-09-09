@@ -9,7 +9,7 @@ namespace Infrastructure.Logging.Data
     public class LogEntryData
     {
         public int Id { get; private set; }
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public DateTime LoggedAt { get; set; }
         public string Text { get; set; }
         public string Error { get; set; }
