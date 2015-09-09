@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Security
 {
-    public class SignOut
+    public class MissingCredentialsException : Exception
     {
     }
 }

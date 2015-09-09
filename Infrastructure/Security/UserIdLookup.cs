@@ -1,5 +1,4 @@
-﻿using Events;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Security
 {
-    public class SignIn
+    public class UserIdLookup
     {
-
-        public SignIn(string email, string password)
+        public UserIdLookup(string email)
         {
             Email = email;
-            Password = password;
         }
 
         public string Email { get; }
-
-        public string Password { get; }
     }
 }

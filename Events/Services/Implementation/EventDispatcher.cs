@@ -27,13 +27,14 @@ namespace Events.Services.Implementation
             var handlerTypes = from ct in e.GetType().GetCovariantTypes().Distinct()
                                select ct.GetHandlerType().GetEnumerableType();
 
-            
+
             var matches = from handlerType in handlerTypes
                           from handler in (IEnumerable<object>)ServiceProvider.GetService(handlerType)
                           where !(handler is IEventDispatcher)
                           let method = handler.GetType().GetMethod("HandleAsync", new[] { e.GetType() })
-                          select Task.Run(
-                              async () => await (Task<bool>)method.Invoke(handler, new[] { e }));
+                          select (Task<bool>)method.Invoke(handler, new[] { e });
+                          //select Task.Run(
+                          //    async () => await (Task<bool>)method.Invoke(handler, new[] { e }));
 
             var task = Task.WhenAll(matches);
             try
