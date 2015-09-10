@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Events.Models;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 
 namespace Events.Services.Implementation
 {
@@ -27,14 +28,11 @@ namespace Events.Services.Implementation
             var handlerTypes = from ct in e.GetType().GetCovariantTypes().Distinct()
                                select ct.GetHandlerType().GetEnumerableType();
 
-
             var matches = from handlerType in handlerTypes
                           from handler in (IEnumerable<object>)ServiceProvider.GetService(handlerType)
                           where !(handler is IEventDispatcher)
                           let method = handler.GetType().GetMethod("HandleAsync", new[] { e.GetType() })
-                          select (Task<bool>)method.Invoke(handler, new[] { e });
-                          //select Task.Run(
-                          //    async () => await (Task<bool>)method.Invoke(handler, new[] { e }));
+                          select method.InvokeAsync(handler, e);
 
             var task = Task.WhenAll(matches);
             try
@@ -43,7 +41,25 @@ namespace Events.Services.Implementation
             }
             catch
             {
-                throw task.Exception.Flatten();
+                if (task.Exception.InnerExceptions.Count == 1)
+                    throw task.Exception.InnerException;
+                else
+                    throw task.Exception;
+            }
+        }        
+    }
+
+    static class HandlerInvoker
+    {
+        public static Task<bool> InvokeAsync(this MethodInfo method, object handler, object e)
+        {
+            try
+            {
+                return (Task<bool>)method.Invoke(handler, new[] { e });
+            }
+            catch(Exception ex)
+            {
+                return Task.FromException<bool>(ex);
             }
         }
     }

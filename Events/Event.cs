@@ -91,17 +91,19 @@ namespace Events
 
             public static async Task<bool> NotifyAsync(object e)
             {                
-                Task<bool[]> matches;
-                Lock.EnterReadLock();
+                Subscription[] instances;
+                Lock.EnterReadLock();                
                 try
                 {
-                    matches = Task.WhenAll(from s in Instances.ToArray()
-                                           select s.NotifyCoreAsync(e));
+                    instances = Instances.ToArray();                    
                 }
                 finally
                 {
                     Lock.ExitReadLock();
                 }
+
+                var matches = Task.WhenAll(from s in instances
+                                           select s.NotifyCoreAsync(e));
 
                 return (await matches)
                     .Contains(true);
