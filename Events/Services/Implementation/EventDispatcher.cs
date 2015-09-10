@@ -57,9 +57,9 @@ namespace Events.Services.Implementation
             {
                 return (Task<bool>)method.Invoke(handler, new[] { e });
             }
-            catch(Exception ex)
+            catch(TargetInvocationException ex)
             {
-                return Task.FromException<bool>(ex);
+                return Task.FromException<bool>(ex.InnerException);
             }
         }
     }
