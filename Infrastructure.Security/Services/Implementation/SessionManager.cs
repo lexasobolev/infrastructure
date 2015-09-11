@@ -5,12 +5,13 @@ using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Security.Services.Implementation
 {
-    public class SessionManager : IHandler<SignIn>, IHandler<SignOut>, IHandler<Validation<SignIn>>
+    public class SessionManager : IHandler<SignIn>, IHandler<SignInAs>, IHandler<SignOut>, IHandler<Validation<SignIn>>
     {
         public Task<bool> HandleAsync(Validation<SignIn> e)
         {
@@ -25,11 +26,27 @@ namespace Infrastructure.Security.Services.Implementation
             var userId = await new UserIdLookup(e.Email)
                             .WaitAsync<Guid>();
 
-            var identityUser = await IdentityManagers.UserManager.FindAsync(userId.ToString(), e.Password);
-            if (identityUser == null)
+            var appUser = await IdentityManagers.UserManager.FindAsync(userId.ToString(), e.Password);
+            if (appUser == null)
                 throw new InvalidCredentialsException();
 
-            var identity = await IdentityManagers.UserManager.CreateIdentityAsync(identityUser, DefaultAuthenticationTypes.ApplicationCookie);
+            var identity = await IdentityManagers.UserManager.CreateIdentityAsync(appUser, DefaultAuthenticationTypes.ApplicationCookie);
+            IdentityManagers.AuthenticationManager.SignIn(new AuthenticationProperties
+            {
+                IsPersistent = false
+            }, identity);
+
+            return true;
+        }
+
+        public async Task<bool> HandleAsync(SignInAs e)
+        {
+            var appUser = await IdentityManagers.UserManager.FindByIdAsync(e.UserId.ToString());
+            if (appUser == null)
+                throw new IdentityNotFoundException();
+
+            var identity = await IdentityManagers.UserManager.CreateIdentityAsync(appUser, DefaultAuthenticationTypes.ApplicationCookie);
+            identity.AddClaim(new Claim("ImpersonatorId", e.ImpersonatorId.ToString()));
             IdentityManagers.AuthenticationManager.SignIn(new AuthenticationProperties
             {
                 IsPersistent = false

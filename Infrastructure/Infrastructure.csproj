@@ -154,10 +154,12 @@
     <Compile Include="PaginatedQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AppStartup.cs" />
+    <Compile Include="Security\IdentityNotFoundException.cs" />
     <Compile Include="Security\InvalidCredentialsException.cs" />
     <Compile Include="Security\MissingCredentialsException.cs" />
     <Compile Include="Security\Services\IAuthenticator.cs" />
     <Compile Include="Security\SignIn.cs" />
+    <Compile Include="Security\SignInAs.cs" />
     <Compile Include="Security\SignOut.cs" />
     <Compile Include="Security\UserIdLookup.cs" />
     <Compile Include="Services\IClock.cs" />
