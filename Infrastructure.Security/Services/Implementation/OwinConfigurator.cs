@@ -5,6 +5,7 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +19,19 @@ namespace Infrastructure.Security.Services.Implementation
             app.CreatePerOwinContext(AppIdentityDbContext.Create);
             app.CreatePerOwinContext<AppUserManager>(AppUserManager.Create);
             app.CreatePerOwinContext<AppSignInManager>(AppSignInManager.Create);
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
+
+            var cookieOptions = new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                CookieName = "auth-token"
-            });
+            };
+
+            if (ConfigurationManager.AppSettings["security:CookieName"] != null)
+                cookieOptions.CookieName = ConfigurationManager.AppSettings["security:CookieName"];
+
+            if (ConfigurationManager.AppSettings["security:CookieDomain"] != null)
+                cookieOptions.CookieDomain = ConfigurationManager.AppSettings["security:CookieDomain"];
+
+            app.UseCookieAuthentication(cookieOptions);
 
             return Task.FromResult(true);
         }
