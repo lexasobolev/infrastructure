@@ -20,6 +20,7 @@ namespace Events.Services.Implementation
 
         IServiceProvider ServiceProvider { get; }
 
+        [DebuggerHidden]
         public async Task<bool> HandleAsync(object e)
         {
             if (e == null)
@@ -51,6 +52,7 @@ namespace Events.Services.Implementation
 
     static class HandlerInvoker
     {
+        [DebuggerHidden]
         public static Task<bool> InvokeAsync(this MethodInfo method, object handler, object e)
         {
             try

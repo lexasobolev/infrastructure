@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -34,6 +35,7 @@ namespace Events
                 throw new NotImplementedException("Required " + typeof(T).Name + " event handler is not registered.");
         }
 
+        [DebuggerHidden]
         public async static Task<bool> RaiseAsync<T>(this T e)
         {
             try
@@ -89,6 +91,7 @@ namespace Events
                 }
             }
 
+            [DebuggerHidden]
             public static async Task<bool> NotifyAsync(object e)
             {                
                 Subscription[] instances;
