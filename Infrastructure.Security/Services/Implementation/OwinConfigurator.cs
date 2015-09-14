@@ -1,6 +1,7 @@
 ﻿using Events;
 using Infrastructure.Security.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using System;
@@ -22,15 +23,18 @@ namespace Infrastructure.Security.Services.Implementation
 
             var cookieOptions = new CookieAuthenticationOptions
             {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie
             };
+
+            if (ConfigurationManager.AppSettings["security:LoginPath"] != null)
+                cookieOptions.LoginPath = new PathString(ConfigurationManager.AppSettings["security:LoginPath"]);
 
             if (ConfigurationManager.AppSettings["security:CookieName"] != null)
                 cookieOptions.CookieName = ConfigurationManager.AppSettings["security:CookieName"];
 
             if (ConfigurationManager.AppSettings["security:CookieDomain"] != null)
                 cookieOptions.CookieDomain = ConfigurationManager.AppSettings["security:CookieDomain"];
-
+            
             app.UseCookieAuthentication(cookieOptions);
 
             return Task.FromResult(true);
