@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Security.Services.Implementation
 {
-    public class SessionManager : IHandler<SignIn>, IHandler<SignInAs>, IHandler<SignOut>, IHandler<Validation<SignIn>>
+    public class Sessions : IHandler<SignIn>, IHandler<SignInAs>, IHandler<SignOut>, IHandler<Validation<SignIn>>
     {
         public Task<bool> HandleAsync(Validation<SignIn> e)
         {

@@ -193,10 +193,13 @@
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\AppUserManager.cs" />
     <Compile Include="Models\IdentityManagers.cs" />
+    <Compile Include="Models\RandomString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Implementation\Authenticator.cs" />
     <Compile Include="Services\Implementation\OwinConfigurator.cs" />
-    <Compile Include="Services\Implementation\SessionManager.cs" />
+    <Compile Include="Services\Implementation\Passwords.cs" />
+    <Compile Include="Services\Implementation\Sessions.cs" />
+    <Compile Include="Services\Implementation\UserAccounts.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Events\Events.csproj">
