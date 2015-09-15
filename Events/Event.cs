@@ -29,6 +29,7 @@ namespace Events
             return new Subscription<T>(handler);
         }
 
+        [DebuggerHidden]
         public static async Task ExecuteAsync<T>(this T e)
         {
             if (!await RaiseAsync(e))
