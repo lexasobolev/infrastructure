@@ -188,6 +188,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201508290037057_InitialCreate.cs" />
+    <Compile Include="Migrations\201508290037057_InitialCreate.Designer.cs">
+      <DependentUpon>201508290037057_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppIdentityDbContext.cs" />
     <Compile Include="Models\AppSignInManager.cs" />
     <Compile Include="Models\AppUser.cs" />
@@ -217,6 +222,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508290037057_InitialCreate.resx">
+      <DependentUpon>201508290037057_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
