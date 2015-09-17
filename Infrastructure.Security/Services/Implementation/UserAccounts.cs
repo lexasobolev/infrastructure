@@ -26,6 +26,7 @@ namespace Infrastructure.Security.Services.Implementation
                     throw new InvalidOperationException(string.Join(", ", result.Errors));
 
             }
+            await e.ReplyAsync(appUser);
             return true;
         }
     }

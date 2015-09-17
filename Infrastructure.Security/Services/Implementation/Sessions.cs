@@ -41,9 +41,8 @@ namespace Infrastructure.Security.Services.Implementation
 
         public async Task<bool> HandleAsync(SignInAs e)
         {
-            var appUser = await IdentityManagers.UserManager.FindByIdAsync(e.UserId.ToString());
-            if (appUser == null)
-                throw new IdentityNotFoundException();
+            var appUser = await new EnsureUserExists(e.UserId)
+                .WaitAsync<AppUser>();
 
             var identity = await IdentityManagers.UserManager.CreateIdentityAsync(appUser, DefaultAuthenticationTypes.ApplicationCookie);
             identity.AddImpersonatorId(e.ImpersonatorId);
