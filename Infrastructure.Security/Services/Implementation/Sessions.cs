@@ -46,7 +46,7 @@ namespace Infrastructure.Security.Services.Implementation
                 throw new IdentityNotFoundException();
 
             var identity = await IdentityManagers.UserManager.CreateIdentityAsync(appUser, DefaultAuthenticationTypes.ApplicationCookie);
-            identity.AddClaim(new Claim("ImpersonatorId", e.ImpersonatorId.ToString()));
+            identity.AddImpersonatorId(e.ImpersonatorId);
             IdentityManagers.AuthenticationManager.SignIn(new AuthenticationProperties
             {
                 IsPersistent = false

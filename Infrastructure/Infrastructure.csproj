@@ -157,6 +157,7 @@
     <Compile Include="Security\ChangePassword.cs" />
     <Compile Include="Security\EnsureUserExists.cs" />
     <Compile Include="Security\IdentityNotFoundException.cs" />
+    <Compile Include="Security\ImpersonatorClaim.cs" />
     <Compile Include="Security\InvalidCredentialsException.cs" />
     <Compile Include="Security\MissingCredentialsException.cs" />
     <Compile Include="Security\ResetPassword.cs" />
