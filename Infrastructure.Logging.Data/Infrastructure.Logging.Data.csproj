@@ -146,6 +146,10 @@
     <Compile Include="Migrations\201509060408025_LogExtendedWithXml.Designer.cs">
       <DependentUpon>201509060408025_LogExtendedWithXml.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509301808105_InfrustructureUpdate.cs" />
+    <Compile Include="Migrations\201509301808105_InfrustructureUpdate.Designer.cs">
+      <DependentUpon>201509301808105_InfrustructureUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -165,6 +169,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509060408025_LogExtendedWithXml.resx">
       <DependentUpon>201509060408025_LogExtendedWithXml.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509301808105_InfrustructureUpdate.resx">
+      <DependentUpon>201509301808105_InfrustructureUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

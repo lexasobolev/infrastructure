@@ -8,11 +8,11 @@ namespace Infrastructure.Security.Services.Implementation
 {
     public class Authenticator : IAuthenticator
     {
-        public Guid UserId
+        public int UserId
         {
             get
             {
-                return Guid.Empty;
+                return 0;
             }
         }
     }
